@@ -1,7 +1,7 @@
 package main
 
 import (
-	ll "100DaysOfCodeGolang/LinkedList"
+	ll "100DaysOfCodeGolang/LinkedList/list"
 )
 
 func main() {
