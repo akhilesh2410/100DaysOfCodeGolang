@@ -1,18 +1,17 @@
-package list
+package doublylist
 
-import (
-	"fmt"
-)
+import "fmt"
 
-type LinkList struct {
+type DList struct {
 	data int
-	next *LinkList
+	prev *DList
+	next *DList
 }
 
-//Insert element at last of list
-func (node *LinkList) Insert(data int) {
-	newNode := new(LinkList)
+func (node *DList) Insert(data int) {
+	newNode := new(DList)
 	newNode.data = data
+	newNode.prev = nil
 	newNode.next = nil
 	if node == nil {
 		node = newNode
@@ -22,21 +21,23 @@ func (node *LinkList) Insert(data int) {
 			temp = temp.next
 		}
 		temp.next = newNode
+		newNode.prev = temp
 	}
 }
 
 //Insert element at a specific position in list
-func (node *LinkList) InsertAtPos(data, pos int) {
+func (node *DList) InsertAtPos(data,pos int) {
 	if node == nil {
 		fmt.Println("list is  empty")
 		return
 	}
-	newNode := new(LinkList)
+	newNode := new(DList)
 	newNode.data = data
+	newNode.prev = nil
 	newNode.next = nil
 	count := 1
 	temp := node
-	for temp.next != nil && count < pos {
+	for (temp.next != nil && count < pos) {
 		temp = temp.next
 		count++
 	}
@@ -45,18 +46,19 @@ func (node *LinkList) InsertAtPos(data, pos int) {
 		return
 	}
 	newNode.next = temp.next
+	temp.next.prev = newNode
+	newNode.prev = temp
 	temp.next = newNode
 }
-
-func (list *LinkList) ShowList() {
+func (list *DList) ShowList() {
 	fmt.Printf("head")
 	for ; list != nil; list = list.next {
-		fmt.Printf("---->")
+		fmt.Printf("<---->")
 		fmt.Printf("%d", list.data)
 	}
-	fmt.Println("---->nil")
+	fmt.Println("<---->nil")
 }
-func (list *LinkList) Delete(data int) {
+func (list *DList) Delete(data int) {
 	if list == nil {
 		fmt.Println("List is empty")
 		return
@@ -71,20 +73,5 @@ func (list *LinkList) Delete(data int) {
 		return
 	}
 	temp.next = list.next
-}
-
-func (list *LinkList) Reverse() (head *LinkList, cur *LinkList) {
-
-	if list == nil {
-		fmt.Println("list is empty")
-		return nil, nil
-	}
-	//var head *LinkList
-	if list.next == nil {
-		return list, list
-	}
-	head, temp := (list.next).Reverse()
-	temp.next = list
-	list.next = nil
-	return head, list
+	list.next.prev = temp
 }

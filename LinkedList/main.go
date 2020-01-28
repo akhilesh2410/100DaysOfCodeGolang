@@ -13,7 +13,7 @@ func main() {
 	myList.Insert(5)
 	myList.InsertAtPos(15,3)
 	myList.ShowList()
-	myList.Delete(5)
+	myList.Delete(11)
 	myList.ShowList()
 	head,_ := myList.Reverse()
 	head.ShowList()
