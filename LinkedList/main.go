@@ -14,4 +14,7 @@ func main() {
 	myList.ShowList()
 	myList.Delete(4)
 	myList.ShowList()
+	head,_ := myList.Reverse()
+	head.ShowList()
+
 }

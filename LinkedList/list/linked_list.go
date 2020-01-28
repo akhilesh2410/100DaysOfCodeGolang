@@ -43,3 +43,19 @@ func (list *LinkList) Delete(data int) {
 	}
 	temp.next = list.next
 }
+
+func (list *LinkList) Reverse()(head *LinkList, cur *LinkList) {
+
+	if list == nil {
+		fmt.Println("list is empty")
+		return nil, nil
+	}
+	//var head *LinkList
+	if list.next == nil {
+		return list, list
+	}
+	head, temp := (list.next).Reverse()
+	temp.next = list
+	list.next = nil
+	return head ,list
+}
